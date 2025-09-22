@@ -1,0 +1,2 @@
+# ElectricPaymentSystem
+一个用于电力缴费的网站以及微信小程序
