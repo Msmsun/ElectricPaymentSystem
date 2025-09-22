@@ -1,0 +1,35 @@
+<!--pages/login/login.wxml-->
+<view class="container">
+  <!-- 连接状态指示器 -->
+  <view class="connection-status" wx:if="{{connectionStatus !== 'connected'}}">
+    <view class="status-indicator {{connectionStatus}}">
+      <text class="status-icon">
+        <text wx:if="{{connectionStatus === 'checking'}}">⏳</text>
+        <text wx:if="{{connectionStatus === 'failed'}}">❌</text>
+      </text>
+      <text class="status-text">{{connectionMessage}}</text>
+    </view>
+    <button class="retry-btn" wx:if="{{connectionStatus === 'failed'}}" bindtap="onRetryConnection">
+      重试连接
+    </button>
+  </view>
+
+  <view class="login-form">
+    <view class="logo">
+      <text class="logo-text">电费缴费系统</text>
+    </view>
+    <input class="input" placeholder="请输入用户名" value="{{username}}" bindinput="onUsernameInput" />
+    <input class="input" placeholder="请输入密码" password value="{{password}}" bindinput="onPasswordInput" />
+    <view class="captcha-bar">
+      <input class="captcha-input" placeholder="请输入验证码" value="{{code}}" bindinput="onCodeInput" />
+      <view class="captcha-container" bindtap="onRefreshCaptcha">
+        <image class="captcha-img" src="{{captchaUrl}}" mode="aspectFit" />
+        <view class="captcha-tip">点击刷新</view>
+      </view>
+    </view>
+    <button class="btn" bindtap="onLogin" loading="{{loading}}">登录</button>
+    <view class="register-link">
+      <navigator url="../register/register">没有账号？去注册</navigator>
+    </view>
+  </view>
+</view> 

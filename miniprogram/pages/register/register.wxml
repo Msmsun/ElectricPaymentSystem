@@ -1,0 +1,8 @@
+<view class="container">
+  <view class="title">用户注册</view>
+  <input class="input" placeholder="请输入用户名" />
+  <input class="input" placeholder="请输入密码" password />
+  <input class="input" placeholder="确认密码" password />
+  <button class="btn">注册</button>
+  <navigator url="../login/login">已有账号？去登录</navigator>
+</view> 

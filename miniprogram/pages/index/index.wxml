@@ -1,0 +1,81 @@
+<view class="container">
+  <!-- 顶部欢迎区域 -->
+  <view class="header-section">
+    <view class="welcome-card">
+      <view class="welcome-text">
+        <view class="greeting">欢迎回来</view>
+        <view class="username">{{userInfo.nickName || userInfo.username || '用户'}}</view>
+      </view>
+      <view class="welcome-icon">⚡</view>
+    </view>
+    
+    <!-- 公告区域 -->
+    <view class="notice-card" wx:if="{{notice}}">
+      <view class="notice-icon">📢</view>
+      <view class="notice-content">
+        <text class="notice-text">{{notice}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 四大功能板块 -->
+  <view class="grid-container">
+    <!-- 账单查询板块 -->
+    <view class="grid-item bill-section" bindtap="goToBill">
+      <view class="item-icon">📊</view>
+      <view class="item-content">
+        <view class="item-title">账单查询</view>
+        <view class="item-desc">查看电费账单记录</view>
+      </view>
+      <view class="item-arrow">→</view>
+    </view>
+
+    <!-- 用电查询板块 -->
+    <view class="grid-item usage-section" bindtap="goToPlusage">
+      <view class="item-icon">🔍</view>
+      <view class="item-content">
+        <view class="item-title">用电查询</view>
+        <view class="item-desc">查询用电数据统计</view>
+      </view>
+      <view class="item-arrow">→</view>
+    </view>
+
+    <!-- 个人中心板块 -->
+    <view class="grid-item profile-section" bindtap="goToProfile">
+      <view class="item-icon">👤</view>
+      <view class="item-content">
+        <view class="item-title">个人中心</view>
+        <view class="item-desc">管理个人信息账户</view>
+      </view>
+      <view class="item-arrow">→</view>
+    </view>
+
+    <!-- AI助手板块 -->
+    <view class="grid-item ai-section" bindtap="goToAI">
+      <view class="item-icon">🤖</view>
+      <view class="item-content">
+        <view class="item-title">AI助手</view>
+        <view class="item-desc">智能用电分析助手</view>
+      </view>
+      <view class="item-arrow">→</view>
+    </view>
+  </view>
+
+  <!-- 底部统计信息 -->
+  <view class="stats-section">
+    <view class="stats-card">
+      <view class="stats-item">
+        <view class="stats-number">⚡</view>
+        <view class="stats-label">智能用电</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-number">💰</view>
+        <view class="stats-label">费用管理</view>
+      </view>
+      <view class="stats-item">
+        <view class="stats-number">📈</view>
+        <view class="stats-label">数据分析</view>
+      </view>
+    </view>
+  </view>
+</view> 

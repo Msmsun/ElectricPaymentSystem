@@ -1,0 +1,173 @@
+<view class="container">
+  <view class="header">
+    <view class="title">个人中心</view>
+    <view class="user-info">
+      <view class="avatar-container" bindtap="onChangeAvatar">
+        <view class="avatar" wx:if="{{!userInfo.avatar}}">
+          {{userInfo.nickName ? userInfo.nickName.charAt(0) : 'U'}}
+        </view>
+        <image class="avatar-image" wx:if="{{userInfo.avatar}}" src="{{userInfo.avatar}}" mode="aspectFill" />
+        <view class="avatar-edit-icon">📷</view>
+      </view>
+      <view class="user-details">
+        <view class="username">{{userInfo.nickName || userInfo.username || '用户'}}</view>
+        <view class="balance">余额: ¥{{accountBalance}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 标签页导航 -->
+  <view class="tab-nav">
+    <view class="tab-item {{activeTab === 'profile' ? 'active' : ''}}" 
+          data-tab="profile" bindtap="onTabChange">
+      个人信息
+    </view>
+    <view class="tab-item {{activeTab === 'password' ? 'active' : ''}}" 
+          data-tab="password" bindtap="onTabChange">
+      修改密码
+    </view>
+    <view class="tab-item {{activeTab === 'account' ? 'active' : ''}}" 
+          data-tab="account" bindtap="onTabChange">
+      账户管理
+    </view>
+  </view>
+
+  <!-- 个人信息标签页 -->
+  <view class="tab-content" wx:if="{{activeTab === 'profile'}}">
+    <view class="form-section">
+      <view class="form-item">
+        <view class="label">用户昵称</view>
+        <input class="input" placeholder="请输入用户昵称" 
+               value="{{profileForm.nickName}}" 
+               data-field="nickName" bindinput="onProfileInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="label">手机号码</view>
+        <input class="input" placeholder="请输入手机号码" 
+               value="{{profileForm.phonenumber}}" 
+               data-field="phonenumber" bindinput="onProfileInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="label">邮箱地址</view>
+        <input class="input" placeholder="请输入邮箱地址" 
+               value="{{profileForm.email}}" 
+               data-field="email" bindinput="onProfileInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="label">性别</view>
+        <radio-group class="radio-group" value="{{profileForm.sex}}" 
+                     data-field="sex" bindchange="onProfileInput">
+          <label class="radio-item">
+            <radio value="0" />男
+          </label>
+          <label class="radio-item">
+            <radio value="1" />女
+          </label>
+        </radio-group>
+      </view>
+      
+      <button class="btn primary" bindtap="onSaveProfile" loading="{{loading}}">
+        保存信息
+      </button>
+    </view>
+  </view>
+
+  <!-- 修改密码标签页 -->
+  <view class="tab-content" wx:if="{{activeTab === 'password'}}">
+    <view class="form-section">
+      <view class="form-item">
+        <view class="label">旧密码</view>
+        <input class="input" placeholder="请输入旧密码" 
+               password value="{{passwordForm.oldPassword}}" 
+               data-field="oldPassword" bindinput="onPasswordInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="label">新密码</view>
+        <input class="input" placeholder="请输入新密码" 
+               password value="{{passwordForm.newPassword}}" 
+               data-field="newPassword" bindinput="onPasswordInput" />
+      </view>
+      
+      <view class="form-item">
+        <view class="label">确认密码</view>
+        <input class="input" placeholder="请确认新密码" 
+               password value="{{passwordForm.confirmPassword}}" 
+               data-field="confirmPassword" bindinput="onPasswordInput" />
+      </view>
+      
+      <button class="btn primary" bindtap="onChangePassword" loading="{{loading}}">
+        修改密码
+      </button>
+    </view>
+  </view>
+
+  <!-- 账户管理标签页 -->
+  <view class="tab-content" wx:if="{{activeTab === 'account'}}">
+    <view class="form-section">
+      <view class="balance-section">
+        <view class="balance-title">当前余额</view>
+        <view class="balance-amount">¥{{accountBalance}}</view>
+        <button class="btn secondary" bindtap="onQueryBalance">刷新余额</button>
+      </view>
+      
+      <view class="action-section">
+        <button class="btn primary" bindtap="onOpenRecharge">账户充值</button>
+        <button class="btn primary" bindtap="onOpenAddAccount">添加账号</button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 充值弹窗 -->
+  <view class="modal" wx:if="{{rechargeDialogVisible}}">
+    <view class="modal-mask" bindtap="onCloseDialog"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-title">账户充值</view>
+        <view class="modal-close" bindtap="onCloseDialog">×</view>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <view class="label">充值金额</view>
+          <input class="input" placeholder="请输入充值金额" 
+                 type="digit" value="{{rechargeForm.rechargeMoney}}" 
+                 bindinput="onRechargeInput" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn secondary" bindtap="onCloseDialog">取消</button>
+        <button class="btn primary" bindtap="onConfirmRecharge" loading="{{loading}}">
+          确认充值
+        </button>
+      </view>
+    </view>
+  </view>
+
+  <!-- 添加账号弹窗 -->
+  <view class="modal" wx:if="{{addAccountDialogVisible}}">
+    <view class="modal-mask" bindtap="onCloseDialog"></view>
+    <view class="modal-content">
+      <view class="modal-header">
+        <view class="modal-title">添加账号</view>
+        <view class="modal-close" bindtap="onCloseDialog">×</view>
+      </view>
+      <view class="modal-body">
+        <view class="form-item">
+          <view class="label">账户金额</view>
+          <input class="input" placeholder="请输入账户金额" 
+                 type="digit" value="{{addAccountForm.acountBalance}}" 
+                 bindinput="onAddAccountInput" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn secondary" bindtap="onCloseDialog">取消</button>
+        <button class="btn primary" bindtap="onConfirmAddAccount" loading="{{loading}}">
+          确认添加
+        </button>
+      </view>
+    </view>
+  </view>
+</view> 

@@ -1,0 +1,65 @@
+<view class="container">
+  <!-- 搜索栏 -->
+  <view class="search-bar">
+    <input 
+      class="user-id-input" 
+      placeholder="请输入用户ID" 
+      bindinput="onUserIdInput" 
+      value="{{userId}}"
+      disabled="{{loading}}"
+    />
+    <button 
+      class="search-btn" 
+      bindtap="onSearch"
+      disabled="{{loading}}"
+    >
+      {{loading ? '查询中...' : '查询'}}
+    </button>
+  </view>
+
+  <!-- 错误提示 -->
+  <view wx:if="{{error}}" class="error-message">
+    <text>{{error}}</text>
+  </view>
+
+  <!-- 加载状态 -->
+  <view wx:if="{{loading}}" class="loading-container">
+    <view class="loading-spinner"></view>
+    <text class="loading-text">正在加载数据...</text>
+  </view>
+
+  <!-- 用电数据列表 -->
+  <view wx:if="{{!loading && hasData}}" class="usage-list">
+    <view class="list-header">
+      <text class="header-title">用电记录</text>
+      <text class="header-count">共 {{usageList.length}} 条记录</text>
+    </view>
+    
+    <block wx:for="{{usageList}}" wx:key="id">
+      <view 
+        class="usage-item" 
+        bindtap="onUsageItemTap"
+        data-index="{{index}}"
+      >
+        <view class="item-header">
+          <text class="item-date">{{item.usageMonth}}</text>
+          <text class="item-id">用户ID: {{item.userId}}</text>
+        </view>
+        <view class="item-content">
+          <text class="usage-label">用电量</text>
+          <text class="usage-value">{{item.electricityUsage}} kWh</text>
+        </view>
+        <view class="item-footer">
+          <text class="tap-hint">点击查看详情</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <!-- 空数据状态 -->
+  <view wx:if="{{!loading && !hasData && !error}}" class="empty-state">
+    <view class="empty-icon">📊</view>
+    <text class="empty-title">暂无用电数据</text>
+    <text class="empty-desc">请检查用户ID是否正确，或稍后重试</text>
+  </view>
+</view> 

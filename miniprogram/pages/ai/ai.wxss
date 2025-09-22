@@ -1,0 +1,312 @@
+.container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+}
+
+/* 顶部标题区域 */
+.header-section {
+  padding: 30rpx;
+  padding-bottom: 20rpx;
+}
+
+.title-card {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  padding: 40rpx 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10rpx);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.title-content {
+  flex: 1;
+}
+
+.title {
+  font-size: 40rpx;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8rpx;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.subtitle {
+  font-size: 26rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+.ai-icon {
+  font-size: 60rpx;
+  margin-left: 20rpx;
+}
+
+/* 聊天区域 */
+.chat-section {
+  flex: 1;
+  padding: 0 30rpx;
+  margin-bottom: 20rpx;
+}
+
+.chat-container {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 24rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10rpx);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  height: 800rpx;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 30rpx;
+  overflow-y: auto;
+}
+
+/* 消息样式 */
+.message {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 30rpx;
+  animation: fadeInUp 0.3s ease;
+}
+
+.user-message {
+  flex-direction: row-reverse;
+}
+
+.ai-message {
+  flex-direction: row;
+}
+
+.message-avatar {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32rpx;
+  margin: 0 20rpx;
+  background: rgba(102, 126, 234, 0.1);
+  flex-shrink: 0;
+}
+
+.user-message .message-avatar {
+  background: rgba(231, 76, 60, 0.1);
+}
+
+.message-content {
+  flex: 1;
+  max-width: 70%;
+}
+
+.message-text {
+  padding: 20rpx 24rpx;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.ai-message .message-text {
+  background: #f8f9fa;
+  color: #333;
+  border-bottom-left-radius: 8rpx;
+}
+
+.user-message .message-text {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-bottom-right-radius: 8rpx;
+}
+
+/* 建议项样式 */
+.message-suggestions {
+  margin-top: 20rpx;
+}
+
+.suggestion-item {
+  background: rgba(102, 126, 234, 0.1);
+  border: 2rpx solid rgba(102, 126, 234, 0.2);
+  border-radius: 16rpx;
+  padding: 16rpx 20rpx;
+  margin-bottom: 12rpx;
+  font-size: 26rpx;
+  color: #667eea;
+  transition: all 0.3s ease;
+}
+
+.suggestion-item:active {
+  background: rgba(102, 126, 234, 0.2);
+  transform: scale(0.98);
+}
+
+/* 加载动画 */
+.loading-dots {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.dot {
+  width: 12rpx;
+  height: 12rpx;
+  border-radius: 50%;
+  background: #667eea;
+  animation: loadingDot 1.4s infinite ease-in-out;
+}
+
+.dot:nth-child(1) { animation-delay: -0.32s; }
+.dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes loadingDot {
+  0%, 80%, 100% {
+    transform: scale(0.8);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* 输入区域 */
+.input-section {
+  padding: 30rpx;
+  border-top: 2rpx solid rgba(0, 0, 0, 0.05);
+}
+
+.input-container {
+  display: flex;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.message-input {
+  flex: 1;
+  height: 80rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid #e8e8e8;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  background: white;
+  transition: all 0.3s ease;
+}
+
+.message-input:focus {
+  border-color: #667eea;
+  box-shadow: 0 0 0 8rpx rgba(102, 126, 234, 0.1);
+}
+
+.send-btn {
+  width: 120rpx;
+  height: 80rpx;
+  border: none;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  background: #e8e8e8;
+  color: #999;
+  transition: all 0.3s ease;
+}
+
+.send-btn.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 4rpx 16rpx rgba(102, 126, 234, 0.3);
+}
+
+.send-btn:active {
+  transform: scale(0.95);
+}
+
+/* 快捷功能区域 */
+.quick-actions {
+  padding: 0 30rpx 30rpx;
+}
+
+.action-title {
+  font-size: 28rpx;
+  color: white;
+  font-weight: 600;
+  margin-bottom: 20rpx;
+  text-align: center;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 20rpx;
+}
+
+.action-item {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  text-align: center;
+  box-shadow: 0 4rpx 16rpx rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10rpx);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.action-item:active {
+  transform: scale(0.95);
+  box-shadow: 0 2rpx 8rpx rgba(0, 0, 0, 0.15);
+}
+
+.action-icon {
+  font-size: 40rpx;
+  margin-bottom: 12rpx;
+}
+
+.action-text {
+  font-size: 24rpx;
+  color: #333;
+  font-weight: 500;
+}
+
+/* 动画效果 */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 响应式设计 */
+@media (max-width: 750rpx) {
+  .header-section,
+  .chat-section,
+  .quick-actions {
+    padding: 20rpx;
+  }
+  
+  .chat-container {
+    height: 700rpx;
+  }
+  
+  .action-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 16rpx;
+  }
+  
+  .action-item {
+    padding: 24rpx 16rpx;
+  }
+} 
