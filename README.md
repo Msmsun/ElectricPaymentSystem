@@ -1,4 +1,4 @@
-⚡ ElectricPaymentSystem - 智能电力缴费系统
+## ⚡ ElectricPaymentSystem - 智能电力缴费系统
 
 https://img.shields.io/badge/License-MIT-yellow.svg
 
@@ -7,7 +7,6 @@ https://img.shields.io/badge/Frontend-Vue.js-4fc08d.svg
 https://img.shields.io/badge/Backend-Spring%2520Boot-6db33f.svg
 
 https://img.shields.io/badge/WeChat-Mini%2520Program-07c160.svg
-
 
 ElectricPaymentSystem 是一个现代化的、全栈式的电力缴费解决方案。它包含一个功能完善的管理网站和一个便捷的微信小程序，旨在为用户提供无缝、安全、高效的电力服务体验。
 
@@ -84,7 +83,7 @@ bash
 cd backend
 
 # 导入数据库脚本 (位于 `/backend/sql` 目录)
-# 修改 `application.yml` 中的数据库和Redis连接配置
+ 修改 `application.yml` 中的数据库和Redis连接配置
 
 # 打包并运行
 mvn clean package
