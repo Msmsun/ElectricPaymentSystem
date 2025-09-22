@@ -1,14 +1,19 @@
 ⚡ ElectricPaymentSystem - 智能电力缴费系统
 
 https://img.shields.io/badge/License-MIT-yellow.svg
+
 https://img.shields.io/badge/Frontend-Vue.js-4fc08d.svg
+
 https://img.shields.io/badge/Backend-Spring%2520Boot-6db33f.svg
+
 https://img.shields.io/badge/WeChat-Mini%2520Program-07c160.svg
+
 
 ElectricPaymentSystem 是一个现代化的、全栈式的电力缴费解决方案。它包含一个功能完善的管理网站和一个便捷的微信小程序，旨在为用户提供无缝、安全、高效的电力服务体验。
 
 https://via.placeholder.com/800x400.png?text=System+Architecture+Diagram+Here
-（建议：此处放置一张系统架构图或功能展示图）
+![Uploading 85f5afb4-1553-49c3-8cc3-5f5c0fcbf891.png…]()
+
 
 ✨ 核心特性
 🌐 管理网站 (Web Portal)
