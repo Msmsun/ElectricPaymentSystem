@@ -1,0 +1,88 @@
+<!--pages/bill/bill.wxml-->
+<view class="container">
+  <!-- 状态显示 -->
+  <view class="selected-status" wx:if="{{selectedStatus}}">
+    <text class="status-label">选择的账单状态:</text>
+    <text class="status-value">{{selectedStatus}}</text>
+  </view>
+  
+  <!-- 搜索表单 -->
+  <view class="search-form">
+    <view class="form-item">
+      <text class="label">用户ID</text>
+      <input class="input" placeholder="请输入用户ID" value="{{userId}}" bindinput="onUserIdInput" />
+    </view>
+    <view class="form-item">
+      <text class="label">账单状态</text>
+      <picker class="picker" range="{{billStatusOptions}}" range-key="label" bindchange="onBillStatusChange">
+        <view class="picker-text">{{selectedStatus || '请选择账单状态'}}</view>
+      </picker>
+    </view>
+    <view class="form-buttons">
+      <button class="btn btn-primary" bindtap="onSearch">查询</button>
+      <button class="btn btn-reset" bindtap="onReset">重置</button>
+    </view>
+  </view>
+  
+  <!-- 用户信息 -->
+  <view class="user-info" wx:if="{{billDTO.userName && billDTO.userEmail}}">
+    <view class="info-item">
+      <text class="info-label">用户名:</text>
+      <text class="info-value">{{billDTO.userName}}</text>
+    </view>
+    <view class="info-item">
+      <text class="info-label">邮箱:</text>
+      <text class="info-value">{{billDTO.userEmail}}</text>
+    </view>
+  </view>
+  
+  <!-- 账单列表 -->
+  <view class="bill-list" wx:if="{{billDTO.billList.length > 0}}">
+    <view class="bill-item" wx:for="{{billDTO.billList}}" wx:key="id">
+      <view class="bill-header">
+        <text class="bill-id">账单ID: {{item.id}}</text>
+        <text class="bill-status {{item.billStatus === 0 ? 'status-unpaid' : 'status-paid'}}">
+          {{getBillStatusText(item.billStatus)}}
+        </text>
+      </view>
+      <view class="bill-content">
+        <view class="bill-row">
+          <text class="bill-label">电费:</text>
+          <text class="bill-cost">{{item.cost.toFixed(2)}} 元</text>
+        </view>
+        <view class="bill-row">
+          <text class="bill-label">用电月份:</text>
+          <text class="bill-value">{{formatDate(item.usageMonth)}}</text>
+        </view>
+        <view class="bill-row">
+          <text class="bill-label">创建时间:</text>
+          <text class="bill-value">{{formatDateTime(item.createTime)}}</text>
+        </view>
+        <view class="bill-row">
+          <text class="bill-label">更新时间:</text>
+          <text class="bill-value">{{formatDateTime(item.updateTime)}}</text>
+        </view>
+      </view>
+      <view class="bill-actions" wx:if="{{billDTO.userName === userInfo.name}}">
+        <button 
+          class="pay-btn {{item.billStatus === 1 ? 'pay-btn-disabled' : ''}}" 
+          disabled="{{item.billStatus === 1}}"
+          data-bill="{{item}}"
+          bindtap="handlePay"
+        >
+          缴费
+        </button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 无数据提示 -->
+  <view class="no-data" wx:if="{{!loading && billDTO.billList.length === 0}}">
+    <text>暂无账单数据</text>
+  </view>
+  
+  <!-- 加载提示 -->
+  <view class="loading" wx:if="{{loading}}">
+    <text>加载中...</text>
+  </view>
+</view>

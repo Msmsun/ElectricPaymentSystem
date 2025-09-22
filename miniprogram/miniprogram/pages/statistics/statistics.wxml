@@ -1,0 +1,20 @@
+<!--pages/statistics/statistics.wxml-->
+<view class="container">
+  <view class="title">用电统计</view>
+  <view class="filter-bar">
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="picker">选择日期：{{date}}</view>
+    </picker>
+    <button class="btn" bindtap="onQuery">查询</button>
+  </view>
+  <view class="result">
+    <block wx:if="{{statistics}}">
+      <view>总用电量：{{statistics.totalUsage}} 度</view>
+      <view>总费用：{{statistics.totalCost}} 元</view>
+      <!-- 可扩展更多统计项 -->
+    </block>
+    <block wx:else>
+      <view>暂无数据</view>
+    </block>
+  </view>
+</view>

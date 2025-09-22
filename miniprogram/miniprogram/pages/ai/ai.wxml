@@ -1,0 +1,113 @@
+<view class="container">
+  <!-- 调试信息 -->
+  <view class="debug-info" style="background: #f0f0f0; padding: 10rpx; font-size: 20rpx; color: #666;">
+    消息数量: {{messages.length}} | 加载状态: {{loading}} | 输入文本: {{inputText}}
+    <button bindtap="testAddMessage" style="margin-left: 20rpx; font-size: 20rpx; padding: 5rpx 10rpx;">测试添加消息</button>
+  </view>
+
+  <!-- 顶部标题区域 -->
+  <view class="header-section">
+    <view class="title-card">
+      <view class="title-content">
+        <view class="title">AI智能助手</view>
+        <view class="subtitle">智能用电分析，为您提供专业建议</view>
+      </view>
+      <view class="ai-icon">🤖</view>
+    </view>
+  </view>
+
+  <!-- 聊天区域 -->
+  <view class="chat-section">
+    <view class="chat-container">
+      <!-- 聊天消息列表 -->
+      <scroll-view class="chat-messages" scroll-y="true" scroll-into-view="{{scrollToMessage}}" scroll-with-animation="true">
+        <!-- 欢迎消息 -->
+        <view class="message ai-message" wx:if="{{messages.length === 0}}">
+          <view class="message-avatar">🤖</view>
+          <view class="message-content">
+            <view class="message-text">
+              您好！我是您的智能用电助手，可以为您提供：
+            </view>
+            <view class="message-suggestions">
+              <view class="suggestion-item" bindtap="sendSuggestion" data-text="帮我分析一下最近的用电情况">
+                💡 帮我分析一下最近的用电情况
+              </view>
+              <view class="suggestion-item" bindtap="sendSuggestion" data-text="如何节省电费？">
+                💰 如何节省电费？
+              </view>
+              <view class="suggestion-item" bindtap="sendSuggestion" data-text="用电异常预警">
+                ⚠️ 用电异常预警
+              </view>
+              <view class="suggestion-item" bindtap="sendSuggestion" data-text="智能节能建议">
+                🌱 智能节能建议
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <!-- 消息列表 - 简化版本 -->
+        <view wx:for="{{messages}}" wx:key="id" class="message {{item.sender === 'user' ? 'user-message' : 'ai-message'}}" id="msg-{{item.id}}">
+          <view class="message-avatar" wx:if="{{item.sender === 'ai'}}">🤖</view>
+          <view class="message-content">
+            <view class="message-text">{{item.text}}</view>
+          </view>
+          <view class="message-avatar" wx:if="{{item.sender === 'user'}}">👤</view>
+        </view>
+
+        <!-- 加载状态 -->
+        <view class="message ai-message" wx:if="{{loading}}">
+          <view class="message-avatar">🤖</view>
+          <view class="message-content">
+            <view class="loading-dots">
+              <view class="dot"></view>
+              <view class="dot"></view>
+              <view class="dot"></view>
+            </view>
+          </view>
+        </view>
+      </scroll-view>
+
+      <!-- 输入区域 -->
+      <view class="input-section">
+        <view class="input-container">
+          <input class="message-input" 
+                 placeholder="请输入您的问题..." 
+                 value="{{inputText}}"
+                 bindinput="onInputChange"
+                 bindconfirm="sendMessage"
+                 disabled="{{loading}}"
+                 confirm-type="send" />
+          <button class="send-btn {{inputText.trim() ? 'active' : ''}}" 
+                  bindtap="sendMessage" 
+                  disabled="{{!inputText.trim() || loading}}">
+            <text wx:if="{{!loading}}">发送</text>
+            <text wx:else>发送中...</text>
+          </button>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 功能快捷入口 -->
+  <view class="quick-actions">
+    <view class="action-title">快捷功能</view>
+    <view class="action-grid">
+      <view class="action-item" bindtap="sendSuggestion" data-text="用电趋势分析">
+        <view class="action-icon">📈</view>
+        <view class="action-text">用电趋势</view>
+      </view>
+      <view class="action-item" bindtap="sendSuggestion" data-text="节能建议">
+        <view class="action-icon">🌱</view>
+        <view class="action-text">节能建议</view>
+      </view>
+      <view class="action-item" bindtap="sendSuggestion" data-text="费用计算">
+        <view class="action-icon">💰</view>
+        <view class="action-text">费用计算</view>
+      </view>
+      <view class="action-item" bindtap="sendSuggestion" data-text="异常检测">
+        <view class="action-icon">⚠️</view>
+        <view class="action-text">异常检测</view>
+      </view>
+    </view>
+  </view>
+</view> 
